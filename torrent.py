@@ -60,7 +60,7 @@ class torrent(dict):
         trackers = []
         if self.has_key("announce-list"):
             for server in self["announce-list"]:
-                tracker.append(server[0])
+                trackers.append(server[0])
         trackers.append(self["announce"])
         return trackers
 

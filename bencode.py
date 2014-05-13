@@ -10,7 +10,19 @@
 
 # Written by Petru Paler
 
-from BTL import BTFailure
+class BTFailure(Exception):
+    pass
+
+class bdict(dict):
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r"'bdict' object has no attribute '%s'" % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
 
 
 def decode_int(x, f):
@@ -40,7 +52,7 @@ def decode_list(x, f):
     return (r, f + 1)
 
 def decode_dict(x, f):
-    r, f = {}, f+1
+    r, f = bdict(), f+1
     while x[f] != 'e':
         k, f = decode_string(x, f)
         r[k], f = decode_func[x[f]](x, f)

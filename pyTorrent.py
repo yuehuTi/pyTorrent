@@ -24,7 +24,6 @@ class task(object):
             self.torrent = torrent(filename=torrent_file)
         except Exception, e:
             raise e
-
         
 
     def start():
